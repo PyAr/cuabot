@@ -2,9 +2,11 @@
 bot_token: 1014293589:AAFFtwbM_LcBRHO32J-c_k2Cnt-xiQouIfU
 welcome_message: Hola ejecuta /pregunta
 question_handler: pregunta
-question_message: Selecciona la sala y enviame tu pregunta
+select_room_message: Selecciona la sala
+enter_question_message: Enviame tu pregunta
+no_room_selected_message: Llame a /pregunta para seleccionar sala
 rooms:
-  - chat_id: CHAT_ID
+  - chat_id: -310928743
     name: Sala A
-  - chat_id: CHAT_ID
+  - chat_id: -342670693
     name: Sala B
