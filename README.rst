@@ -55,21 +55,21 @@ FIXME: improve these steps docs
 Configure it all
 ----------------
 
-Copy the `example.yaml` config file to something for you and change the parameters:
+Copy the ``example.yaml`` config file to something for you and change the parameters:
 
-- `bot_token`: the token from bot father obtained above
+- ``bot_token``: the token from bot father obtained above
 
-- `welcome_message`: the message to show to the user when it starts interacting with the bot
+- ``welcome_message``: the message to show to the user when it starts interacting with the bot
 
-- `question_handler`: the command string (`/something`) to send questions to the bot
+- ``question_handler``: the command string (``/something``) to send questions to the bot
 
-- `question_message`: the message for the user to select the room
+- ``question_message``: the message for the user to select the room
 
-- `rooms`: the list of rooms handled by the bot, each one is a dict holding:
+- ``rooms``: the list of rooms handled by the bot, each one is a dict holding:
 
-  - `name`: the human friendly name for the room, to show to the user
+  - ``name``: the human friendly name for the room, to show to the user
 
-  - `chat_id`: the Telegram id for the room; one nice way to see it is to invite the bot to the specific room and call its `/get_chat_id` command
+  - ``chat_id``: the Telegram id for the room; one nice way to see it is to invite the bot to the specific room and call its ``/get_chat_id`` command
 
 
 Start a cuabot instance
