@@ -63,13 +63,28 @@ Copy the ``example.yaml`` config file to something for you and change the parame
 
 - ``question_handler``: the command string (``/something``) to send questions to the bot
 
-- ``question_message``: the message for the user to select the room
+- ``question_handler_description``: the command description to be shown after you add it to the bot in the BotFather
+
+- ``select_room_message``: the message for the user to select the room
+
+- ``enter_question_message``: the message for the user to enter the question
+
+- ``sent_question_message``: the message for the user after the question was sent
 
 - ``rooms``: the list of rooms handled by the bot, each one is a dict holding:
 
   - ``name``: the human friendly name for the room, to show to the user
 
   - ``chat_id``: the Telegram id for the room; one nice way to see it is to invite the bot to the specific room and call its ``/get_chat_id`` command
+
+Get the command list to add to BotFather
+-----------------------------------------
+
+To get the command list to add to BotFather::
+
+     python -m cuabot list-commands <config_file>
+     Enter this commands in BotFather:
+     question - Send question to room
 
 
 Print the QR
@@ -85,4 +100,18 @@ To generate this is just run::
 Start a cuabot instance
 -----------------------
 
-Run ``python -m cuabot run <config_file>``
+To start the bot run::
+
+     python -m cuabot run <config_file>
+
+
+Get the user or chat id where to send the messages
+--------------------------------------------------
+
+Run this command in the chat or directly to the bot::
+
+     /get_chat_id
+     Chat ID: -123456789
+
+
+

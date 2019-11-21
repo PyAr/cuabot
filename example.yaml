@@ -2,6 +2,7 @@
 bot_token: TOKEN
 welcome_message: Hello use /question to send your question
 question_handler: question
+question_handler_description: Send your question
 select_room_message: Choose the room
 enter_question_message: Write your question
 sent_question_message: Your question was sent to
