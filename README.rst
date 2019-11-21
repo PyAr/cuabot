@@ -67,9 +67,9 @@ Copy the `example.yaml` config file to something for you and change the paramete
 
 - `rooms`: the list of rooms handled by the bot, each one is a dict holding:
 
-    - `name`: the human friendly name for the room, to show to the user
+  - `name`: the human friendly name for the room, to show to the user
 
-    - `chat_id`: the Telegram id for the room; one nice way to see it is to invite the bot to the specific room and call its `/get_chat_id` command
+  - `chat_id`: the Telegram id for the room; one nice way to see it is to invite the bot to the specific room and call its `/get_chat_id` command
 
 
 Start a cuabot instance
