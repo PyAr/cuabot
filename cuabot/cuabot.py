@@ -35,7 +35,7 @@ class CUABot:
             room_index = int(selected_room_raw)
             selected_room = self.config['rooms'][room_index]
             update.message.forward(selected_room['chat_id'])
-            update.message.reply_text("Gracias su pregunta fue enviada a: %s" % selected_room['name'])
+            update.message.reply_text(f"{self.config['sent_question_message']} {selected_room['name']}")
 
     def get_chat_id(self, update, context):
         update.message.reply_text("Chat ID: %s" % update.message['chat']['id'])
