@@ -72,7 +72,17 @@ Copy the ``example.yaml`` config file to something for you and change the parame
   - ``chat_id``: the Telegram id for the room; one nice way to see it is to invite the bot to the specific room and call its ``/get_chat_id`` command
 
 
+Print the QR
+------------
+
+The simplest way for the public to be able to speak to the bot easily, is to generate a QR that when scanned points to the bot in Telegram.
+
+To generate this is just run::
+
+    python -m cuabot generate-qr <config_file> <qr_image_filepath>
+
+
 Start a cuabot instance
 -----------------------
 
-Run `python -m cuabot run <config_file>`
+Run ``python -m cuabot run <config_file>``
