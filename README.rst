@@ -43,16 +43,36 @@ The idea is to start an instance of this bot during a conference. The steps to d
 Create the bot
 --------------
 
-FIXME: write this
+FIXME: improve these steps docs
+
+- Go to Telegram
+- Start talking to BotFather
+- /newbot
+- insert username for the bot
+- insert handler for the bot
 
 
 Configure it all
 ----------------
 
-FIXME: write this
+Copy the `example.yaml` config file to something for you and change the parameters:
+
+- `bot_token`: the token from bot father obtained above
+
+- `welcome_message`: the message to show to the user when it starts interacting with the bot
+
+- `question_handler`: the command string (`/something`) to send questions to the bot
+
+- `question_message`: the message for the user to select the room
+
+- `rooms`: the list of rooms handled by the bot, each one is a dict holding:
+
+    - `name`: the human friendly name for the room, to show to the user
+
+    - `chat_id`: the Telegram id for the room; one nice way to see it is to invite the bot to the specific room and call its `/get_chat_id` command
 
 
 Start a cuabot instance
 -----------------------
 
-FIXME: write this
+Run `python -m cuabot run <config_file>`
