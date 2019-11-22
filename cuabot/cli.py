@@ -22,7 +22,7 @@ def generate_qr(config_file, qr_file):
         config = yaml.safe_load(f)
     cuabot = CUABot(config)
     bot_url = cuabot.generate_qr(qr_file)
-    click.echo("QR generated on file: %s - Bot url: %s" % (qr_file, bot_url))
+    click.echo("QR generated on file: {0} - Bot url: {1}".format(qr_file, bot_url))
 
 @cli.command()
 @click.argument('config_file', type=click.Path(exists=True))
