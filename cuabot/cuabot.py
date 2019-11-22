@@ -26,7 +26,7 @@ class CUABot:
         return "\n".join(commands)
 
     def start_handler(self, update, context):
-        context.bot.send_message(chat_id=update.effective_chat.id, text=self.config['welcome_message'])
+        update.message.reply_text(self.config['welcome_message'])
 
     def get_chat_id(self, update, context):
         update.message.reply_text("Chat ID: {}".format(update.message['chat']['id']))
@@ -38,8 +38,7 @@ class CUABot:
         keyboard = [[InlineKeyboardButton(room["name"], callback_data=str(index))]
                     for index, room in enumerate(self.config['rooms'])]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        context.bot.send_message(chat_id=update.effective_chat.id,
-                                 text=self.config['select_room_message'], reply_markup=reply_markup)
+        update.message.reply_text(self.config['select_room_message'], reply_markup=reply_markup)
 
     def select_room_handler(self, update, context):
         query = update.callback_query
@@ -55,7 +54,7 @@ class CUABot:
             room_index = int(selected_room_raw)
             selected_room = self.config['rooms'][room_index]
             update.message.forward(selected_room['chat_id'])
-            update.message.reply_text("{0} {1}".format(self.config['sent_question_message'],selected_room['name'] ))
+            update.message.reply_text("{0} {1}".format(self.config['sent_question_message'],selected_room['name']))
 
     def run(self):
         # Fixme validar que no reciba preguntas de grupos
