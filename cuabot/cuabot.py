@@ -42,12 +42,12 @@ class CUABot:
 
     def select_room_handler(self, update, context):
         query = update.callback_query
-        context.user_data['selected_room'] = update.callback_query['data']
+        context.chat_data['selected_room'] = query['data']
         query.edit_message_text(text=self.config['enter_question_message'])
 
     def question_text_handler(self, update, context):
         # Here we take out the room from the context to not send the question to other room chat
-        selected_room_raw = context.user_data.pop('selected_room', None)
+        selected_room_raw = context.chat_data.pop('selected_room', None)
         if selected_room_raw is None:
             update.message.reply_text(self.config['no_room_selected_message'])
         else:
@@ -64,8 +64,8 @@ class CUABot:
         updater.dispatcher.add_handler(CommandHandler('start', self.start_handler))
         updater.dispatcher.add_handler(CommandHandler("get_chat_id", self.get_chat_id))
         updater.dispatcher.add_handler(CommandHandler(self.config['question_handler'], self.question_handler))
-        updater.dispatcher.add_handler(CallbackQueryHandler(self.select_room_handler, pass_user_data=True))
-        updater.dispatcher.add_handler(MessageHandler(Filters.text, self.question_text_handler, pass_user_data=True))
+        updater.dispatcher.add_handler(CallbackQueryHandler(self.select_room_handler, pass_chat_data=True))
+        updater.dispatcher.add_handler(MessageHandler(Filters.text, self.question_text_handler, pass_chat_data=True))
         updater.dispatcher.add_error_handler(self.on_error_handler)
         print("Running with config: {}".format(self.config))
         updater.start_polling()
