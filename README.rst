@@ -9,8 +9,6 @@ The dynamics to use the bot is:
 
 - any person may speak to the bot, anytime, it only has commands to send questions
 
-- when a user connects to it inform the commands; there's one command per conference room (e.g. ``/roomA``, ``/room8``, ``/plenary``); this is obviously configured per conference/bot instance.
-
 - people in the conference, assisting to a talk, may send a question to the bot at any time (during the talk, or when the talk finishes); as the person uses a specific command, that question will be sent by the bot to a specific Telegram private group.
 
 - there is one Telegram private group per conference room, supervised by the conference collaborators, specially by the person assigned to that conference room
@@ -68,11 +66,19 @@ Copy the ``example.yaml`` config file to something for you and change the parame
 
 - ``question_handler_description``: the command description to be shown after you add it to the bot in the BotFather
 
+- ``anonymous_question_handler``: the command string (``/something``) to send anonymous questions to the bot
+
+- ``anonymous_question_handler_description``: the command description to be shown after you add it to the bot in the BotFather
+
+- ``no_group_message``: the message to show when someone talks to the bot from a group
+
 - ``select_room_message``: the message for the user to select the room
 
 - ``enter_question_message``: the message for the user to enter the question
 
 - ``sent_question_message``: the message for the user after the question was sent
+
+- ``no_room_selected_message``: the message to show when you talk to the bot without using a command
 
 - ``rooms``: the list of rooms handled by the bot, each one is a dict holding:
 
