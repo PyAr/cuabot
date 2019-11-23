@@ -70,6 +70,18 @@ Copy the ``example.yaml`` config file to something for you and change the parame
 
 - ``anonymous_question_handler_description``: the command description to be shown after you add it to the bot in the BotFather
 
+- ``next_talks_handler``: the command string (``/something``) to get the next scheduled talks
+
+- ``next_talks_handler_description``: the command description to be shown after you add it to the bot in the BotFather
+
+- ``no_next_talks_message``: the message for the user if there are no next talks today
+
+- ``current_talks_handler``: the command string (``/something``) to get the current talks
+
+- ``current_talks_handler_description``: the command description to be shown after you add it to the bot in the BotFather
+
+- ``no_current_talks_message``: the message for the user if there are no current talks
+
 - ``no_group_message``: the message to show when someone talks to the bot from a group
 
 - ``select_room_message``: the message for the user to select the room

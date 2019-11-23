@@ -5,17 +5,17 @@ question_handler: question
 question_handler_description: Send your question
 anonymous_question_handler: anonymous_question
 anonymous_question_handler_description: Send anonymous question
-no_group_message: Please, talk to me directly (I don't response in groups)
-select_room_message: Choose the room
-enter_question_message: Write your question
-sent_question_message: Your question was sent to
-no_room_selected_message: Use /question to send a question to a room
 next_talks_handler: next
 next_talks_handler_description: Show the next talks for today
 no_next_talks_message: The are no next talks today
 current_talks_handler: current
 current_talks_handler_description: Show the current talks
 no_current_talks_message: The are no talks now
+no_group_message: Please, talk to me directly (I don't response in groups)
+select_room_message: Choose the room
+enter_question_message: Write your question
+sent_question_message: Your question was sent to
+no_room_selected_message: Use /question to send a question to a room
 rooms:
   - chat_id: -123456789
     name: Room A
