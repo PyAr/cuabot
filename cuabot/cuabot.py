@@ -10,7 +10,7 @@ class CUABot:
 
     def get_bot_url(self, bot):
         bot_user = bot.get_me()
-        url = "https://t.me/{}".format(bot_user.username)
+        url = 'https://t.me/{}'.format(bot_user.username)
         return url
 
     def generate_qr(self, qr_file):
@@ -22,21 +22,21 @@ class CUABot:
 
     def get_commands(self):
         commands = []
-        commands.append("{0} - {1}".format(self.config['question_handler'], self.config['question_handler_description']))
-        commands.append("{0} - {1}".format(self.config['anonymous_question_handler'], self.config['anonymous_question_handler_description']))
-        return "\n".join(commands)
+        commands.append('{0} - {1}'.format(self.config['question_handler'], self.config['question_handler_description']))
+        commands.append('{0} - {1}'.format(self.config['anonymous_question_handler'], self.config['anonymous_question_handler_description']))
+        return '\n'.join(commands)
 
     def start_handler(self, update, context):
         update.message.reply_text(self.config['welcome_message'])
 
     def get_chat_id(self, update, context):
-        update.message.reply_text("Chat ID: {}".format(update.message['chat']['id']))
+        update.message.reply_text('Chat ID: {}'.format(update.message['chat']['id']))
 
     def on_error_handler(self, update, context):
-        print("ERROR: ", context.error)
+        print('ERROR: ', context.error)
 
     def question_handler(self, update, context):
-        keyboard = [[InlineKeyboardButton(room["name"], callback_data=str(index))]
+        keyboard = [[InlineKeyboardButton(room['name'], callback_data=str(index))]
                     for index, room in enumerate(self.config['rooms'])]
         reply_markup = InlineKeyboardMarkup(keyboard)
         update.message.reply_text(self.config['select_room_message'], reply_markup=reply_markup)
@@ -63,19 +63,19 @@ class CUABot:
                 context.bot.send_message(chat_id=selected_room['chat_id'], text=update.message.text)
             else:
                 update.message.forward(selected_room['chat_id'])
-            update.message.reply_text("{0} {1}".format(self.config['sent_question_message'],selected_room['name']))
+            update.message.reply_text('{0} {1}'.format(self.config['sent_question_message'],selected_room['name']))
 
     def run(self):
         # Fixme validar que no reciba preguntas de grupos
         updater = Updater(token=self.config['bot_token'], use_context=True)
         bot_url = self.get_bot_url(updater.bot)
-        print("Cuabot is running on", bot_url)
+        print('Cuabot is running on', bot_url)
         updater.dispatcher.add_handler(CommandHandler('start', self.start_handler))
-        updater.dispatcher.add_handler(CommandHandler("get_chat_id", self.get_chat_id))
+        updater.dispatcher.add_handler(CommandHandler('get_chat_id', self.get_chat_id))
         updater.dispatcher.add_handler(CommandHandler(self.config['question_handler'], self.question_handler))
         updater.dispatcher.add_handler(CommandHandler(self.config['anonymous_question_handler'], self.anonymous_question_handler, pass_chat_data=True))
         updater.dispatcher.add_handler(CallbackQueryHandler(self.select_room_handler, pass_chat_data=True))
         updater.dispatcher.add_handler(MessageHandler(Filters.text, self.question_text_handler, pass_chat_data=True))
         updater.dispatcher.add_error_handler(self.on_error_handler)
-        print("Running with config: {}".format(self.config))
+        print('Running with config: {}'.format(self.config))
         updater.start_polling()
