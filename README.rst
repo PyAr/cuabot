@@ -87,12 +87,18 @@ Copy the ``example.yaml`` config file to something for you and change the parame
   - ``chat_id``: the Telegram id for the room; one nice way to see it is to invite the bot to the specific room and call its ``/get_chat_id`` command
 
 - ``schedule``: this is a list with the talks schedule, each one is a dict holding:
-   - ``room``: the human friendly name for the room, to show to the user
-   - ``talks``: this is a list of the talks for that room, each one is a dict holding:
-      - ``start``: timestamp of the start of the talk
-      - ``duration``: duration of the talk in minutes
-      - ``name``: name of the talk
-      - ``speaker``: name of the speaker
+
+  - ``room``: the human friendly name for the room, to show to the user
+
+  - ``talks``: this is a list of the talks for that room, each one is a dict holding:
+
+    - ``start``: timestamp of the start of the talk
+
+    - ``duration``: duration of the talk in minutes
+
+    - ``name``: name of the talk
+
+    - ``speaker``: name of the speaker
 
 
 
