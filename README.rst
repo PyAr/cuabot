@@ -43,7 +43,7 @@ The idea is to start an instance of this bot during a conference. The steps to d
 Create the bot
 --------------
 
-FIXME: improve these steps docs
+Steps:
 
 - Go to Telegram
 - Start talking to BotFather
@@ -51,6 +51,9 @@ FIXME: improve these steps docs
 - insert username for the bot
 - insert handler for the bot
 
+.. image:: media/getToken.gif
+   :width: 50 %
+   :alt: get token
 
 Configure it all
 ----------------
@@ -85,6 +88,10 @@ To get the command list to add to BotFather::
      python -m cuabot list-commands <config_file>
      Enter this commands in BotFather:
      question - Send question to room
+
+.. image:: media/setCommands.gif
+   :width: 50 %
+   :alt: set commands
 
 
 Print the QR
