@@ -27,6 +27,8 @@ class CUABot:
         commands = []
         commands.append('{0} - {1}'.format(self.config['question_handler'], self.config['question_handler_description']))
         commands.append('{0} - {1}'.format(self.config['anonymous_question_handler'], self.config['anonymous_question_handler_description']))
+        commands.append('{0} - {1}'.format(self.config['next_talks_handler'], self.config['next_talks_handler_description']))
+        commands.append('{0} - {1}'.format(self.config['current_talks_handler'], self.config['current_talks_handler_description']))
         return '\n'.join(commands)
 
     def start_handler(self, update, context):
