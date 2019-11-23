@@ -69,7 +69,6 @@ class CUABot:
             update.message.reply_text('{0} {1}'.format(self.config['sent_question_message'], selected_room['name']))
 
     def run(self):
-        # Fixme validar que no reciba preguntas de grupos
         updater = Updater(token=self.config['bot_token'], use_context=True)
         bot_url = self.get_bot_url(updater.bot)
         print('Cuabot is running on', bot_url)
