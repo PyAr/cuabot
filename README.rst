@@ -90,7 +90,7 @@ Copy the ``example.yaml`` config file to something for you and change the parame
 
   - ``room``: the human friendly name for the room, to show to the user
 
-  - ``talks``: this is a list of the talks for that room, each one is a dict holding:
+  - ``talks``: this is a list of the talks for that room, each one is a dict holding (the talks must be in order):
 
     - ``start``: timestamp of the start of the talk
 
@@ -131,7 +131,7 @@ To generate this is just run::
 Check the talks schedule
 ------------------------
 
-A helper to check that the schedule is configured ok::
+A helper to check that the schedule is configured ok, use this link to help you with the timestamps `Epoch Converter <https://www.epochconverter.com>`_::
 
      python -m cuabot show-schedule <config_file>
      Room A:
