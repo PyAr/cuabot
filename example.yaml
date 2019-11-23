@@ -5,6 +5,7 @@ question_handler: question
 question_handler_description: Send your question
 anonymous_question_handler: anonymous_question
 anonymous_question_handler_description: Send anonymous question
+no_group_message: Please, talk to me directly (I don't response in groups)
 select_room_message: Choose the room
 enter_question_message: Write your question
 sent_question_message: Your question was sent to
