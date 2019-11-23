@@ -89,6 +89,10 @@ To get the command list to add to BotFather::
      Enter this commands in BotFather:
      question - Send question to room
 
+.. image:: media/setCommands.gif
+   :width: 50 %
+   :alt: set commands
+
 
 Print the QR
 ------------
