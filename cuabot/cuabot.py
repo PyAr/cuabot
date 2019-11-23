@@ -23,6 +23,7 @@ class CUABot:
     def get_commands(self):
         commands = []
         commands.append("{0} - {1}".format(self.config['question_handler'], self.config['question_handler_description']))
+        commands.append("{0} - {1}".format(self.config['anonymous_question_handler'], self.config['anonymous_question_handler_description']))
         return "\n".join(commands)
 
     def start_handler(self, update, context):
