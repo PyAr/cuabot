@@ -10,8 +10,35 @@ select_room_message: Choose the room
 enter_question_message: Write your question
 sent_question_message: Your question was sent to
 no_room_selected_message: Use /question to send a question to a room
+next_talks_handler: next
+next_talks_handler_description: Show the next talks for today
+no_next_talks_message: The are no next talks today
+current_talks_handler: current
+current_talks_handler_description: Show the current talks
+no_current_talks_message: The are no talks now
 rooms:
   - chat_id: -123456789
     name: Room A
   - chat_id: -123456789
     name: Room B
+schedule:
+  - room: Room A
+    talks:
+      - start: 1575552600
+        duration: 60
+        name: name of the talk
+        speaker: name of the speaker
+      - start: 1575554400
+        duration: 30
+        name: name of the talk
+        speaker: name of the speaker
+  - room: Room B
+    talks:
+      - start: 1575552600
+        duration: 30
+        name: name of the talk
+        speaker: name of the speaker
+      - start: 1575554400
+        duration: 60
+        name: name of the talk
+        speaker: name of the speaker

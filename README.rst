@@ -86,6 +86,17 @@ Copy the ``example.yaml`` config file to something for you and change the parame
 
   - ``chat_id``: the Telegram id for the room; one nice way to see it is to invite the bot to the specific room and call its ``/get_chat_id`` command
 
+- ``schedule``: this is a list with the talks schedule, each one is a dict holding:
+   - ``room``: the human friendly name for the room, to show to the user
+   - ``talks``: this is a list of the talks for that room, each one is a dict holding:
+      - ``start``: timestamp of the start of the talk
+      - ``duration``: duration of the talk in minutes
+      - ``name``: name of the talk
+      - ``speaker``: name of the speaker
+
+
+
+
 Get the command list to add to BotFather
 -----------------------------------------
 
@@ -108,6 +119,22 @@ The simplest way for the public to be able to speak to the bot easily, is to gen
 To generate this is just run::
 
     python -m cuabot generate-qr <config_file> <qr_image_filepath>
+
+
+
+Check the talks schedule
+------------------------
+
+A helper to check that the schedule is configured ok::
+
+     python -m cuabot show-schedule <config_file>
+     Room A:
+     2019-12-04 09:00:00 [1575460800]: Talk 1 (Name of the Speaker) [3:30]
+     2019-12-04 13:30:00 [1575477000]: Talk 2 (Name of the Speaker) [4:30]
+     ----------------------
+     Room B:
+     2019-12-04 09:00:00 [1575460800]: Talk 3 (Name of the Speaker) [3:30]
+     2019-12-04 13:30:00 [1575477000]: Talk 4 (Name of the Speaker) [4:30]
 
 
 Start a cuabot instance
