@@ -29,6 +29,9 @@ class CUABot:
     def start_handler(self, update, context):
         update.message.reply_text(self.config['welcome_message'])
 
+    def no_group_handler(self, update, context):
+        update.message.reply_text(self.config['no_group_message'])
+
     def get_chat_id(self, update, context):
         update.message.reply_text('Chat ID: {}'.format(update.message['chat']['id']))
 
@@ -63,7 +66,7 @@ class CUABot:
                 context.bot.send_message(chat_id=selected_room['chat_id'], text=update.message.text)
             else:
                 update.message.forward(selected_room['chat_id'])
-            update.message.reply_text('{0} {1}'.format(self.config['sent_question_message'],selected_room['name']))
+            update.message.reply_text('{0} {1}'.format(self.config['sent_question_message'], selected_room['name']))
 
     def run(self):
         # Fixme validar que no reciba preguntas de grupos
@@ -76,6 +79,7 @@ class CUABot:
         updater.dispatcher.add_handler(CommandHandler(
             self.config['anonymous_question_handler'], self.anonymous_question_handler, pass_chat_data=True, filters=~Filters.group))
         updater.dispatcher.add_handler(CallbackQueryHandler(self.select_room_handler, pass_chat_data=True))
+        updater.dispatcher.add_handler(MessageHandler(Filters.command & Filters.group, self.no_group_handler))
         updater.dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.group, self.question_text_handler, pass_chat_data=True))
         updater.dispatcher.add_error_handler(self.on_error_handler)
         print('Running with config: {}'.format(self.config))
