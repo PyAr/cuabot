@@ -5,6 +5,12 @@ question_handler: question
 question_handler_description: Send your question
 anonymous_question_handler: anonymous_question
 anonymous_question_handler_description: Send anonymous question
+next_talks_handler: next
+next_talks_handler_description: Show the next talks for today
+no_next_talks_message: The are no next talks today
+current_talks_handler: current
+current_talks_handler_description: Show the current talks
+no_current_talks_message: The are no talks now
 no_group_message: Please, talk to me directly (I don't response in groups)
 select_room_message: Choose the room
 enter_question_message: Write your question
@@ -15,3 +21,24 @@ rooms:
     name: Room A
   - chat_id: -123456789
     name: Room B
+schedule:
+  - room: Room A
+    talks:
+      - start: 1575552600
+        duration: 60
+        name: name of the talk
+        speaker: name of the speaker
+      - start: 1575554400
+        duration: 30
+        name: name of the talk
+        speaker: name of the speaker
+  - room: Room B
+    talks:
+      - start: 1575552600
+        duration: 30
+        name: name of the talk
+        speaker: name of the speaker
+      - start: 1575554400
+        duration: 60
+        name: name of the talk
+        speaker: name of the speaker

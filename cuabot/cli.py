@@ -32,3 +32,12 @@ def list_commands(config_file):
     cuabot = CUABot(config)
     click.echo('Enter these commands in BotFather:')
     click.echo(cuabot.get_commands())
+
+@cli.command()
+@click.argument('config_file', type=click.Path(exists=True))
+def show_schedule(config_file):
+    with open(config_file, 'rt', encoding='utf-8') as f:
+        config = yaml.safe_load(f)
+    cuabot = CUABot(config)
+    click.echo(cuabot.show_schedule())
+

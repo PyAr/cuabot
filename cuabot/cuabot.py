@@ -1,5 +1,7 @@
+from datetime import datetime
+from io import StringIO
 import pyqrcode
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot, ParseMode
 from telegram.ext import CommandHandler, Updater, CallbackQueryHandler, Filters, MessageHandler
 
 
@@ -7,6 +9,7 @@ class CUABot:
 
     def __init__(self, config):
         self.config = config
+        self.MAX_TALK_NAME_LENGTH = 100
 
     def get_bot_url(self, bot):
         bot_user = bot.get_me()
@@ -24,6 +27,8 @@ class CUABot:
         commands = []
         commands.append('{0} - {1}'.format(self.config['question_handler'], self.config['question_handler_description']))
         commands.append('{0} - {1}'.format(self.config['anonymous_question_handler'], self.config['anonymous_question_handler_description']))
+        commands.append('{0} - {1}'.format(self.config['next_talks_handler'], self.config['next_talks_handler_description']))
+        commands.append('{0} - {1}'.format(self.config['current_talks_handler'], self.config['current_talks_handler_description']))
         return '\n'.join(commands)
 
     def start_handler(self, update, context):
@@ -68,6 +73,60 @@ class CUABot:
                 update.message.forward(selected_room['chat_id'])
             update.message.reply_text('{0} {1}'.format(self.config['sent_question_message'], selected_room['name']))
 
+    def next_talks_handler(self, update, context):
+        now = datetime.now()
+        now_timestamp = datetime.timestamp(now)
+        next_talks = []
+        for track in self.config['schedule']:
+            for talk in track['talks']:
+                if talk['start'] > now_timestamp:
+                    talk_date = datetime.fromtimestamp(talk['start'])
+                    if now.date() == talk_date.date():
+                        next_talks.append((track['room'], talk))
+                    break
+        message = self.get_talks_message(next_talks, self.config['no_next_talks_message'])
+        update.message.reply_text(message, parse_mode=ParseMode.HTML)
+
+    def current_talks_handler(self, update, context):
+        now = datetime.now()
+        now_timestamp = datetime.timestamp(now)
+        current_talks = []
+        for track in self.config['schedule']:
+            for index, talk in enumerate(track['talks']):
+                if talk['start'] > now_timestamp:
+                    if index > 0:
+                        possible_current_talk = track['talks'][index-1]
+                        talk_date = datetime.fromtimestamp(possible_current_talk['start'])
+                        if now.date() == talk_date.date() and \
+                                now_timestamp <= (possible_current_talk['start'] + possible_current_talk['duration'] * 60):
+                            current_talks.append((track['room'], possible_current_talk))
+                    break
+        message = self.get_talks_message(current_talks, self.config['no_current_talks_message'])
+        update.message.reply_text(message, parse_mode=ParseMode.HTML)
+
+    def get_talks_message(self, talks, empty_message):
+        message = StringIO()
+        if talks:
+            for room, talk in talks:
+                talk_date = datetime.fromtimestamp(talk['start'])
+                message.write('<b>{0} - {1}</b>\n'.format(room, talk_date))
+                message.write('{0} - <i>{1}</i>\n'.format(talk['name'], talk['speaker']))
+        else:
+            message.write(empty_message)
+        return message.getvalue()
+
+    def show_schedule(self):
+        schedule = StringIO()
+        for track in self.config['schedule']:
+            schedule.write('{0}:\n'.format(track['room']))
+            for talk in track['talks']:
+                talk_date = datetime.fromtimestamp(talk['start'])
+                talk_duration = "{}:{}".format(*divmod(talk['duration'], 60))
+                schedule.write("{} [{}]: {} ({}) [{}]\n".format(talk_date, talk['start'],
+                                                               talk['name'], talk['speaker'], talk_duration))
+            schedule.write('----------------------\n')
+        return schedule.getvalue()
+
     def run(self):
         updater = Updater(token=self.config['bot_token'], use_context=True)
         bot_url = self.get_bot_url(updater.bot)
@@ -80,6 +139,10 @@ class CUABot:
         updater.dispatcher.add_handler(CallbackQueryHandler(self.select_room_handler, pass_chat_data=True))
         updater.dispatcher.add_handler(MessageHandler(Filters.command & Filters.group, self.no_group_handler))
         updater.dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.group, self.question_text_handler, pass_chat_data=True))
+        updater.dispatcher.add_handler(
+            CommandHandler(self.config['next_talks_handler'], self.next_talks_handler, filters=~Filters.group))
+        updater.dispatcher.add_handler(
+            CommandHandler(self.config['current_talks_handler'], self.current_talks_handler, filters=~Filters.group))
         updater.dispatcher.add_error_handler(self.on_error_handler)
         print('Running with config: {}'.format(self.config))
         updater.start_polling()
