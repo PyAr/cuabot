@@ -9,8 +9,6 @@ The dynamics to use the bot is:
 
 - any person may speak to the bot, anytime, it only has commands to send questions
 
-- when a user connects to it inform the commands; there's one command per conference room (e.g. ``/roomA``, ``/room8``, ``/plenary``); this is obviously configured per conference/bot instance.
-
 - people in the conference, assisting to a talk, may send a question to the bot at any time (during the talk, or when the talk finishes); as the person uses a specific command, that question will be sent by the bot to a specific Telegram private group.
 
 - there is one Telegram private group per conference room, supervised by the conference collaborators, specially by the person assigned to that conference room
@@ -43,7 +41,7 @@ The idea is to start an instance of this bot during a conference. The steps to d
 Create the bot
 --------------
 
-FIXME: improve these steps docs
+Steps:
 
 - Go to Telegram
 - Start talking to BotFather
@@ -51,6 +49,9 @@ FIXME: improve these steps docs
 - insert username for the bot
 - insert handler for the bot
 
+.. image:: media/getToken.gif
+   :width: 50 %
+   :alt: get token
 
 Configure it all
 ----------------
@@ -65,17 +66,54 @@ Copy the ``example.yaml`` config file to something for you and change the parame
 
 - ``question_handler_description``: the command description to be shown after you add it to the bot in the BotFather
 
+- ``anonymous_question_handler``: the command string (``/something``) to send anonymous questions to the bot
+
+- ``anonymous_question_handler_description``: the command description to be shown after you add it to the bot in the BotFather
+
+- ``next_talks_handler``: the command string (``/something``) to get the next scheduled talks
+
+- ``next_talks_handler_description``: the command description to be shown after you add it to the bot in the BotFather
+
+- ``no_next_talks_message``: the message for the user if there are no next talks today
+
+- ``current_talks_handler``: the command string (``/something``) to get the current talks
+
+- ``current_talks_handler_description``: the command description to be shown after you add it to the bot in the BotFather
+
+- ``no_current_talks_message``: the message for the user if there are no current talks
+
+- ``no_group_message``: the message to show when someone talks to the bot from a group
+
 - ``select_room_message``: the message for the user to select the room
 
 - ``enter_question_message``: the message for the user to enter the question
 
 - ``sent_question_message``: the message for the user after the question was sent
 
+- ``no_room_selected_message``: the message to show when you talk to the bot without using a command
+
 - ``rooms``: the list of rooms handled by the bot, each one is a dict holding:
 
   - ``name``: the human friendly name for the room, to show to the user
 
   - ``chat_id``: the Telegram id for the room; one nice way to see it is to invite the bot to the specific room and call its ``/get_chat_id`` command
+
+- ``schedule``: this is a list with the talks schedule, each one is a dict holding:
+
+  - ``room``: the human friendly name for the room, to show to the user
+
+  - ``talks``: this is a list of the talks for that room, each one is a dict holding (the talks must be in order):
+
+    - ``start``: timestamp of the start of the talk
+
+    - ``duration``: duration of the talk in minutes
+
+    - ``name``: name of the talk
+
+    - ``speaker``: name of the speaker
+
+
+
 
 Get the command list to add to BotFather
 -----------------------------------------
@@ -86,6 +124,10 @@ To get the command list to add to BotFather::
      Enter this commands in BotFather:
      question - Send question to room
 
+.. image:: media/setCommands.gif
+   :width: 50 %
+   :alt: set commands
+
 
 Print the QR
 ------------
@@ -95,6 +137,22 @@ The simplest way for the public to be able to speak to the bot easily, is to gen
 To generate this is just run::
 
     python -m cuabot generate-qr <config_file> <qr_image_filepath>
+
+
+
+Check the talks schedule
+------------------------
+
+A helper to check that the schedule is configured ok, use this link to help you with the timestamps `Epoch Converter <https://www.epochconverter.com>`_::
+
+     python -m cuabot show-schedule <config_file>
+     Room A:
+     2019-12-04 09:00:00 [1575460800]: Talk 1 (Name of the Speaker) [3:30]
+     2019-12-04 13:30:00 [1575477000]: Talk 2 (Name of the Speaker) [4:30]
+     ----------------------
+     Room B:
+     2019-12-04 09:00:00 [1575460800]: Talk 3 (Name of the Speaker) [3:30]
+     2019-12-04 13:30:00 [1575477000]: Talk 4 (Name of the Speaker) [4:30]
 
 
 Start a cuabot instance
